@@ -44,7 +44,7 @@ async function sendMessage() {
   loadingMessageInterval = setInterval(() => {
     currentMessageIndex = (currentMessageIndex + 1) % loadingMessages.length;
     loadingMessageElement.textContent = loadingMessages[currentMessageIndex];
-  }, 5000);
+  }, 500);
 
 
   try {
@@ -138,7 +138,7 @@ function formatReply(reply) {
 
 // Function to add the introductory message from the bot
 function addIntroMessage() {
-  const introMessage = `Hi, I'm Einstein, an AI Agent built with MuleChain on the MuleSoft Anypoint Platform. 
+  const introMessage = `Hi, I'm Max, a Mule AI Chain Agent running on the MuleSoft Anypoint Platform. 
     I have been specialized on MuleSoft Documentation and trained to know almost everything from <b>docs.mulesoft.com</b>. 
   `;
   addMessage('bot', formatReply(introMessage));
