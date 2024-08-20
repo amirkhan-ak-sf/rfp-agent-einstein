@@ -9,21 +9,22 @@ document.getElementById('theme-toggle').addEventListener('change', function () {
 });
 
 // Event listener for pressing Enter key in the input field
-document.getElementById('user-input').addEventListener('keydown', function (event) {
-  if (event.key === 'Enter') {
-    sendMessage();
-  }
-});
-
+document
+  .getElementById('user-input')
+  .addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  });
 
 let loadingMessages = [
-  "Understanding the context...",
-  "Einstein is searching the docs...",
-  "Found section, now diving deeper to answer your question...",
-  "Gathering information...",
-  "Found it, formulating the answer...",
-  "Working on it...",
-  "Taking longer than expected..."
+  'Understanding the context...',
+  'Einstein is searching the docs...',
+  'Found section, now diving deeper to answer your question...',
+  'Gathering information...',
+  'Found it, formulating the answer...',
+  'Working on it...',
+  'Taking longer than expected...',
 ];
 let currentMessageIndex = 0;
 
@@ -38,24 +39,29 @@ async function sendMessage() {
   document.getElementById('send-btn').disabled = true;
 
   // Add the loading message and assign the returned message element to the loadingMessageElement variable
-  loadingMessageElement = addMessage('bot', loadingMessages[currentMessageIndex]);
+  loadingMessageElement = addMessage(
+    'bot',
+    loadingMessages[currentMessageIndex]
+  );
 
   // Start the loading message rotation
   loadingMessageInterval = setInterval(() => {
     currentMessageIndex = (currentMessageIndex + 1) % loadingMessages.length;
     loadingMessageElement.textContent = loadingMessages[currentMessageIndex];
-  }, 500);
-
+  }, 2000);
 
   try {
-    const response = await fetch('https://rfp-einstein-x95dl4.5sc6y6-3.usa-e2.cloudhub.io/prompt', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({ question: userInput }),
-    });
+    const response = await fetch(
+      'https://rfp-einstein-x95dl4.5sc6y6-3.usa-e2.cloudhub.io/prompt',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({ question: userInput }),
+      }
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -81,7 +87,7 @@ async function sendMessage() {
       }
     }
 
-    const text = pElement.outerHTML.replace(/\n/g, '<br>')
+    const text = pElement.outerHTML.replace(/\n/g, '<br>');
 
     //updateIndicators(data.generation.contentQuality.scanToxicity.categories);
     console.log(text);
@@ -102,10 +108,11 @@ async function sendMessage() {
   }
 }
 
-
 function updateIndicators(categories) {
-  categories.forEach(category => {
-    const indicator = document.getElementById(`${category.categoryName.toLowerCase()}-indicator`);
+  categories.forEach((category) => {
+    const indicator = document.getElementById(
+      `${category.categoryName.toLowerCase()}-indicator`
+    );
     if (indicator) {
       if (category.score === 0) {
         indicator.classList.add('green');
@@ -157,10 +164,10 @@ function initializeIndicators() {
     'hate',
     'violence',
     'sexual',
-    'physical'
+    'physical',
   ];
 
-  categories.forEach(category => {
+  categories.forEach((category) => {
     const indicator = document.getElementById(`${category}-indicator`);
     if (indicator) {
       indicator.classList.add('green');
